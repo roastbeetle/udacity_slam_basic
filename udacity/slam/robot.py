@@ -36,7 +36,7 @@ class robot:
                         return False
         return True
         
-    def check_goal(self, goal, threshold = 1.0):
+    def check_goal(self, goal, threshold = 0.2):
         dist =  sqrt((float(goal[0]) - self.x) ** 2 + (float(goal[1]) - self.y) ** 2)
         return dist < threshold
         

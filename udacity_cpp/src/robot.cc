@@ -38,13 +38,13 @@ bool robot::check_collisions(cv::Mat grid){
     return true; 
 }
 
-bool robot::check_goal( vector<int> goal, float threshold = 0.2){
+bool robot::check_goal( vector<int> goal, float threshold){
     float dist = sqrt((goal[0]-x_)*(goal[0]-x_)
                      +(goal[1]-y_)*(goal[1]-y_));
     return dist < threshold;
 }
 
-void robot::move(cv::Mat grid, float steering, float distance, float tolerance = 1.0, float max_steering_angle = PI/4 ){
+void robot::move(robot next, cv::Mat grid, float steering, float distance, float tolerance, float max_steering_angle){
     if(steering > max_steering_angle)
         steering = max_steering_angle;   
     if(steering < -max_steering_angle)
@@ -52,10 +52,52 @@ void robot::move(cv::Mat grid, float steering, float distance, float tolerance =
     if(distance < 0.0)
         distance = 0.0;
     
-    robot::robot next(length_);
     next.set_noise(steering_noise_, distance_noise_, measurement_noise_);
-    next.num_collisions = num_collisions;
-    next.num_steps = num_steps+1;
+   // next.num_collisions = num_collisions;
+   // next.num_steps = num_steps+1;
 
-    normal_distribution<float> distribution(steering,steering_noise_);
+    random_device rd;
+    mt19937 gen(rd());
+    normal_distribution<float> d_s(steering,steering_noise_);
+    normal_distribution<float> d_d(distance,distance_noise_);
+
+    float steering2 = d_s(gen);
+    float distance2 = d_d(gen);
+    float turn = tan(steering2)*distance2 / length_;
+    
+    if(abs(turn) < tolerance){
+        next.set(x_+ (distance2*cos(orientation_)),
+                 y_+ (distance2*sin(orientation_)),
+                 fmod(orientation_+turn,(2.0*PI)));
+    }
+    else{
+        float radius = distance2/turn;
+        float cx = x_ -(sin(orientation_)*radius);
+        float cy = y_ +(cos(orientation_)*radius);
+        float cori = fmod(orientation_+turn,(2.0*PI));
+        next.set(cx+(sin(cori)*radius),cy-(cos(cori)*radius),cori);
+    }
+}
+
+void robot::sense(vector<float> sense_vec){
+    random_device rd;
+    mt19937 gen(rd());
+    normal_distribution<float> d_x(x_,measurement_noise_);
+    normal_distribution<float> d_y(y_,measurement_noise_);
+    sense_vec.push_back(d_x(gen));
+    sense_vec.push_back(d_y(gen));
+}
+
+float robot::measurement_prob(vector<float> measurement){
+    float erx = measurement[0] - x_;
+    float ery = measurement[1] - y_;
+    float mn2 = measurement_noise_*measurement_noise_;
+    
+    float error = exp(-(erx*erx)/(mn2*0.5)/sqrt(2.0*PI*mn2));
+    error = error* exp(-(ery*ery)/(mn2*0.5)/sqrt(2.0*PI*mn2));
+    return error;
+}   
+
+void robot::repr(){
+    cout<<"["<< x_ << y_ << "]" << endl;
 }

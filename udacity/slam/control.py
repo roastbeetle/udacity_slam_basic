@@ -3,7 +3,10 @@ from robot import *
 import matplotlib.pyplot as plt
 
 def run(grid, goal, spath, noise, params, printflag = True, speed = 0.1, timeout = 1000):
-
+    for x in range(grid.shape[0]):
+        for y in range(grid.shape[1]):
+            if grid[x][y] == 1:
+                plt.scatter(x,y,s=300, c='b')
     myrobot = robot()
     myrobot.set(0., 0., 0.)
     myrobot.set_noise(noise[0], noise[1], noise[2])

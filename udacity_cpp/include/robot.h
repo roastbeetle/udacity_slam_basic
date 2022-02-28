@@ -2,6 +2,7 @@
 #include <cmath>
 #include <vector>
 #include <random>
+#include <string>
 
 #include <opencv2/core/core.hpp>
 #include <opencv2/features2d/features2d.hpp>
@@ -31,10 +32,10 @@ class robot{
         void set_noise(float str_noise, float dis_noise, float mea_noise);
         bool check_collisions(cv::Mat grid);
         bool check_goal( vector<int> goal, float threshold = 0.2);
-        void move(cv::Mat grid, float steering, float distance,
+        void move(robot next, cv::Mat grid, float steering, float distance,
                   float tolerance = 1.0, float max_steering_angle = PI/4 );
-        void sense();
-        void measurement_prob(vector<float> measurement);
+        void sense(vector<float> sense_vec);
+        float measurement_prob(vector<float> measurement);
         void repr();
 
 };

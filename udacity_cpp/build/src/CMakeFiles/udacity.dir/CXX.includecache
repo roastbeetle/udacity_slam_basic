@@ -1,0 +1,32 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/lb/udacity_slam_basic/udacity_cpp/src/./../include/robot.h
+iostream
+-
+cmath
+-
+vector
+-
+random
+-
+string
+-
+opencv2/core/core.hpp
+-
+opencv2/features2d/features2d.hpp
+-
+opencv2/highgui/highgui.hpp
+-
+
+/home/lb/udacity_slam_basic/udacity_cpp/src/robot.cc
+iostream
+-
+./../include/robot.h
+/home/lb/udacity_slam_basic/udacity_cpp/src/./../include/robot.h
+

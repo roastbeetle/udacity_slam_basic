@@ -64,3 +64,4 @@ def twiddle(init_params):
 params = [weight_data, weight_smooth,p_gain, d_gain]
 params = twiddle(params)
 print params
+ 
