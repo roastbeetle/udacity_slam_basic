@@ -3,6 +3,7 @@
 #include <vector>
 #include <random>
 #include <string>
+#include <algorithm>
 
 #include <opencv2/core/core.hpp>
 #include <opencv2/features2d/features2d.hpp>
@@ -21,6 +22,9 @@ class plan{
         int col_;
         vector<int> init_;
         vector<int> goal_;
+        vector<vector<int>> path_;
+        vector<vector<float>> spath_;
+
     
     public:
         plan(Mat grid, vector<int> init, vector<int> goal, float cost);

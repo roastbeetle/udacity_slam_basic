@@ -1,6 +1,7 @@
 #include <iostream>
 #include "./../include/pathplan.h"
 
+
 plan::plan(Mat grid, vector<int> init, vector<int> goal, float cost):
         cost_(1.0), grid_(grid), row_(grid.rows), col_(grid.cols),
         init_(init), goal_(goal) {}
@@ -19,11 +20,10 @@ void plan::make_heuristic(){
 void plan::astar(){
     if(heur_.empty())
         cout<< "error" <<endl;
-    
-    vector<int> up    = {-1, 0};
-    vector<int> down  = { 1, 0};
-    vector<int> left  = { 0,-1};
-    vector<int> right = { 0, 1};
+    vector<vector<int>> delta= {{-1, 0},
+                                { 0,-1},
+                                { 1, 0},
+                                { 0, 1}};
 
     Mat closed = Mat::zeros(row_,col_,CV_32S);
     Mat action = Mat::zeros(row_,col_,CV_32S);
@@ -48,8 +48,55 @@ void plan::astar(){
             cout<<"Search Terminated Failed"<<endl;
         }
         else{
-            open.
+            sort(open.begin(), open.end());
+            vector<int> next = open.back();
+            open.pop_back();
+            g = next[1];
+            x = next[3];
+            y = next[4];
         }
+        if(x==goal_[0] && y ==goal_[1]){
+            found = true;
+        }
+        else{
+            for(int i = 0; i< delta.size() ; i++){
+                int x2 = x + delta[i][0];
+                int y2 = y + delta[i][1];
+                if( x2>=0 && x2<row_ && y2>=0 && y2<col_ ){
+                    if( closed.at<int>(x2,y2) == 0 && grid_.at<int>(x2,y2) == 0){
+                        int g2 = g + cost_;
+                        int h2 = heur_.at<int>(x2,y2);
+                        int f2 = g2 + h2;
+                        open.push_back({f2,g2,h2,x2,y2});
+                        closed.at<int>(x2,y2) = 1;
+                        action.at<int>(x2,y2) = 1;
+                    }
+                }
+            }
+        }
+        count = count + 1;
     }
+    
+    vector<vector<int>> invpath;
+    x = goal_[0]; 
+    y = goal_[1];
+    invpath.push_back({x,y});
+    while( x != init_[0] or y != init_[1] ){
+        int x2 = x - delta[action.at<int>(x,y)][0];
+        int y2 = y - delta[action.at<int>(x,y)][1];
+        x = x2;
+        y = y2;
+        invpath.push_back({x,y});
+    } 
 
+    path_.clear();
+    for(int i=0; i<invpath.size(); i++){
+        path_.push_back(invpath[invpath.size()-1-i]);
+    }
+}
+
+void plan::smooth(float weight_data, float weight_smooth, float tolerance){
+    if(path_.empty())
+        cout<<"Search Terminated Failed"<<endl;
+    
 }
