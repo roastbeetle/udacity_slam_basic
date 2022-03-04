@@ -44,7 +44,7 @@ bool robot::check_goal( vector<int> goal, float threshold){
     return dist < threshold;
 }
 
-void robot::move(robot next, cv::Mat grid, float steering, float distance, float tolerance, float max_steering_angle){
+robot robot::move(cv::Mat grid, float steering, float distance, float tolerance, float max_steering_angle){
     if(steering > max_steering_angle)
         steering = max_steering_angle;   
     if(steering < -max_steering_angle)
@@ -52,6 +52,7 @@ void robot::move(robot next, cv::Mat grid, float steering, float distance, float
     if(distance < 0.0)
         distance = 0.0;
     
+    robot next = robot(length_);
     next.set_noise(steering_noise_, distance_noise_, measurement_noise_);
    // next.num_collisions = num_collisions;
    // next.num_steps = num_steps+1;
@@ -77,6 +78,7 @@ void robot::move(robot next, cv::Mat grid, float steering, float distance, float
         float cori = fmod(orientation_+turn,(2.0*PI));
         next.set(cx+(sin(cori)*radius),cy-(cos(cori)*radius),cori);
     }
+    return next;
 }
 
 void robot::sense(vector<float> sense_vec){
