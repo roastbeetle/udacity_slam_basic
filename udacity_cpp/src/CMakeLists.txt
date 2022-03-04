@@ -1,5 +1,6 @@
 add_library( udacity SHARED
     robot.cc
+    pathplan.cc
 )
 
 target_link_libraries( udacity

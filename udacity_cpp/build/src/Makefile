@@ -125,6 +125,33 @@ udacity/fast:
 	cd /home/lb/udacity_slam_basic/udacity_cpp/build && $(MAKE) -f src/CMakeFiles/udacity.dir/build.make src/CMakeFiles/udacity.dir/build
 .PHONY : udacity/fast
 
+pathplan.o: pathplan.cc.o
+
+.PHONY : pathplan.o
+
+# target to build an object file
+pathplan.cc.o:
+	cd /home/lb/udacity_slam_basic/udacity_cpp/build && $(MAKE) -f src/CMakeFiles/udacity.dir/build.make src/CMakeFiles/udacity.dir/pathplan.cc.o
+.PHONY : pathplan.cc.o
+
+pathplan.i: pathplan.cc.i
+
+.PHONY : pathplan.i
+
+# target to preprocess a source file
+pathplan.cc.i:
+	cd /home/lb/udacity_slam_basic/udacity_cpp/build && $(MAKE) -f src/CMakeFiles/udacity.dir/build.make src/CMakeFiles/udacity.dir/pathplan.cc.i
+.PHONY : pathplan.cc.i
+
+pathplan.s: pathplan.cc.s
+
+.PHONY : pathplan.s
+
+# target to generate assembly for a file
+pathplan.cc.s:
+	cd /home/lb/udacity_slam_basic/udacity_cpp/build && $(MAKE) -f src/CMakeFiles/udacity.dir/build.make src/CMakeFiles/udacity.dir/pathplan.cc.s
+.PHONY : pathplan.cc.s
+
 robot.o: robot.cc.o
 
 .PHONY : robot.o
@@ -161,6 +188,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... udacity"
 	@echo "... edit_cache"
+	@echo "... pathplan.o"
+	@echo "... pathplan.i"
+	@echo "... pathplan.s"
 	@echo "... robot.o"
 	@echo "... robot.i"
 	@echo "... robot.s"

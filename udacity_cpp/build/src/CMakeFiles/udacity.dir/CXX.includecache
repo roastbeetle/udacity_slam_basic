@@ -6,6 +6,26 @@
 
 #IncludeRegexTransform: 
 
+/home/lb/udacity_slam_basic/udacity_cpp/src/./../include/pathplan.h
+iostream
+-
+cmath
+-
+vector
+-
+random
+-
+string
+-
+algorithm
+-
+opencv2/core/core.hpp
+-
+opencv2/features2d/features2d.hpp
+-
+opencv2/highgui/highgui.hpp
+-
+
 /home/lb/udacity_slam_basic/udacity_cpp/src/./../include/robot.h
 iostream
 -
@@ -23,6 +43,12 @@ opencv2/features2d/features2d.hpp
 -
 opencv2/highgui/highgui.hpp
 -
+
+/home/lb/udacity_slam_basic/udacity_cpp/src/pathplan.cc
+iostream
+-
+./../include/pathplan.h
+/home/lb/udacity_slam_basic/udacity_cpp/src/./../include/pathplan.h
 
 /home/lb/udacity_slam_basic/udacity_cpp/src/robot.cc
 iostream

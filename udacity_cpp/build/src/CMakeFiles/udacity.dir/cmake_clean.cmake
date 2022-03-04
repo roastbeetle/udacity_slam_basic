@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/udacity.dir/robot.cc.o"
+  "CMakeFiles/udacity.dir/pathplan.cc.o"
   "libudacity.pdb"
   "libudacity.so"
 )

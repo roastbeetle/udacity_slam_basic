@@ -24,7 +24,6 @@ class plan{
         vector<int> goal_;
         vector<vector<int>> path_;
         vector<vector<float>> spath_;
-
     
     public:
         plan(Mat grid, vector<int> init, vector<int> goal, float cost);

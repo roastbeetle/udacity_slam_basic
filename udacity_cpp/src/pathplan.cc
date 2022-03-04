@@ -99,4 +99,31 @@ void plan::smooth(float weight_data, float weight_smooth, float tolerance){
     if(path_.empty())
         cout<<"Search Terminated Failed"<<endl;
     
+    for(int i=0; i<path_.size();i++){
+        spath_.push_back({static_cast<float>(path_[i][0]), 
+                          static_cast<float>(path_[i][1])});
+    }
+
+    float change = tolerance;
+    while(change>=tolerance){
+        change = 0.0;
+        for(int i=1; i<path_.size()-1;i++){
+            for(int j=0; j<2; j++){
+                float aux = spath_[i][j];
+                spath_[i][j] += weight_data*(path_[i][j] - spath_[i][j]);
+                spath_[i][j] += weight_smooth*(spath_[i-1][j] + spath_[i+1][j] - (2.0 * spath_[i][j]));
+                    
+                if(i >= 2){
+                    spath_[i][j] += 0.5 * weight_smooth*
+                            (2.0 * spath_[i-1][j] - spath_[i-2][j] - spath_[i][j]);
+                }
+                if( i <= path_.size() - 3){
+                    spath_[i][j] += 0.5 * weight_smooth*
+                            (2.0 * spath_[i+1][j] - spath_[i+2][j] - spath_[i][j]);
+                }
+                change += abs(aux - spath_[i][j]);
+            }
+        }
+    }
+            
 }

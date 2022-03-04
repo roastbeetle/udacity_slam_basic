@@ -1,1 +1,1 @@
-g++ -fPIC -O3 -DNDEBUG  -shared -Wl,-soname,libudacity.so -o libudacity.so CMakeFiles/udacity.dir/robot.cc.o 
+g++ -fPIC -O3 -DNDEBUG  -shared -Wl,-soname,libudacity.so -o libudacity.so CMakeFiles/udacity.dir/robot.cc.o CMakeFiles/udacity.dir/pathplan.cc.o 

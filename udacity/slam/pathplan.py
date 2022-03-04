@@ -125,4 +125,6 @@ class plan:
                         self.spath[i][j] += 0.5 * weight_smooth * \
                             (2.0 * self.spath[i+1][j] - self.spath[i+2][j] - self.spath[i][j])
                 
-            change += abs(aux - self.spath[i][j])
+                    change += abs(aux - self.spath[i][j])
+        print(self.path)
+        print(self.spath)
