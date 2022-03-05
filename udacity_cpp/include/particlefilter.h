@@ -12,11 +12,10 @@ class particles{
         vector<robot> data_;
     
     public:
-        particles(float length, float x, float y, float theta, float steering_noise, float distance_noise, float measurement_noise, int N );
-        ~particles();
-
-    protected:
         vector<float> get_position();
         void move(Mat grid, float steer, float speed);
         void sense(vector<float> Z);
+        particles(float length, float x, float y, float theta, float steering_noise, float distance_noise, float measurement_noise, int N=100 );
+        ~particles();
+
 };

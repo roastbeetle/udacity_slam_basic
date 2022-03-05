@@ -29,13 +29,13 @@ class robot{
         robot move(cv::Mat grid, float steering, float distance,
                    float tolerance = 1.0, float max_steering_angle = PI/4 );
         float measurement_prob(vector<float> measurement);
+        bool check_goal( vector<int> goal, float threshold = 0.2);
+        bool check_collisions(cv::Mat grid);
+        vector<float> sense();
         robot(float length);
         ~robot();
 
     protected:
-        bool check_collisions(cv::Mat grid);
-        bool check_goal( vector<int> goal, float threshold = 0.2);
-        void sense(vector<float> sense_vec);
         void repr();
 
 };

@@ -81,13 +81,15 @@ robot robot::move(cv::Mat grid, float steering, float distance, float tolerance,
     return next;
 }
 
-void robot::sense(vector<float> sense_vec){
+vector<float> robot::sense(){
+    vector<float> sense_vec;
     random_device rd;
     mt19937 gen(rd());
     normal_distribution<float> d_x(x_,measurement_noise_);
     normal_distribution<float> d_y(y_,measurement_noise_);
     sense_vec.push_back(d_x(gen));
     sense_vec.push_back(d_y(gen));
+    return sense_vec;
 }
 
 float robot::measurement_prob(vector<float> measurement){
