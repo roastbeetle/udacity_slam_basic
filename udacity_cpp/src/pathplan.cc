@@ -3,7 +3,7 @@
 
 
 plan::plan(Mat grid, vector<int> init, vector<int> goal, float cost):
-        cost_(1.0), grid_(grid), row_(grid.rows), col_(grid.cols),
+        cost_(cost), grid_(grid), row_(grid.rows), col_(grid.cols),
         init_(init), goal_(goal) {}
     
 plan::~plan(){}

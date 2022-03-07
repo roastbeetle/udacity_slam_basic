@@ -3,6 +3,7 @@ add_library( udacity SHARED
     pathplan.cc
     particlefilter.cc
     control.cc
+    slam.cc
 )
 
 target_link_libraries( udacity

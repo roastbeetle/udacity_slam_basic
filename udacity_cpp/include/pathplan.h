@@ -11,7 +11,6 @@
 
 using namespace std;
 using namespace cv;
-const float PI = 3.141592;
 
 class plan{
     private:
@@ -23,16 +22,15 @@ class plan{
         vector<int> init_;
         vector<int> goal_;
         vector<vector<int>> path_;
-        vector<vector<float>> spath_;
     
     public:
-        plan(Mat grid, vector<int> init, vector<int> goal, float cost);
+        void astar();
+        void smooth(float weight_data = 0.1, float weight_smooth = 0.1, float tolerance = 0.000001);
+        vector<vector<float>> spath_;
+        plan(Mat grid, vector<int> init, vector<int> goal, float cost=1.0);
         ~plan();
 
     protected:
         void make_heuristic();
-        void astar();
-        void smooth(float weight_data = 0.1, float weight_smooth = 0.1, float tolerance = 0.000001);
-
 
 };

@@ -1,8 +1,20 @@
 #include "./../include/particlefilter.h"
+#include <gnuplot-iostream.h>
+
+void run(float length, Mat grid, vector<int> goal, vector<vector<float>> spath, vector<float> noise,
+        vector<float> params, bool printflag = true, float speed = 0.1, int time = 1000);
 
 void run(float length, Mat grid, vector<int> goal, vector<vector<float>> spath, vector<float> noise,
         vector<float> params, bool printflag = true, float speed = 0.1, int time = 1000){
-    
+    Gnuplot g1("ff");
+    for(int i=0; i<grid.rows; i++){
+        for(int j=0; j<grid.cols; j++){
+            if(grid.at<int>(i,j) == 1){
+
+            }
+        }
+    }
+
     robot myrobot = robot(length);
     myrobot.set(0.0,0.0,0.0);
     myrobot.set_noise(noise[0],noise[1],noise[2]);
