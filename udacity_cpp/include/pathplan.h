@@ -1,3 +1,6 @@
+#ifndef PATHPLAN_H
+#define PATHPLAN_H
+
 #include <iostream>
 #include <cmath>
 #include <vector>
@@ -34,3 +37,5 @@ class plan{
         void make_heuristic();
 
 };
+
+#endif

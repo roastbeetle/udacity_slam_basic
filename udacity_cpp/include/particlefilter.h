@@ -1,3 +1,6 @@
+#ifndef PARTICLEFILTER_H
+#define PARTICLEFILTER_H
+
 #include "robot.h"
 
 using namespace std;
@@ -19,3 +22,5 @@ class particles{
         ~particles();
 
 };
+
+#endif

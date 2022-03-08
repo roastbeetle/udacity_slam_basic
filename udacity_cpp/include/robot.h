@@ -1,3 +1,6 @@
+#ifndef ROBOT_H
+#define ROBOT_H
+
 #include <iostream>
 #include <cmath>
 #include <vector>
@@ -5,7 +8,6 @@
 #include <string>
 
 #include <opencv2/core/core.hpp>
-#include <opencv2/features2d/features2d.hpp>
 #include <opencv2/highgui/highgui.hpp>
 
 using namespace std;
@@ -39,3 +41,5 @@ class robot{
         void repr();
 
 };
+
+#endif

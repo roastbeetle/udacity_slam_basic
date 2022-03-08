@@ -4,6 +4,7 @@ add_library( udacity SHARED
     particlefilter.cc
     control.cc
     slam.cc
+    config.cc
 )
 
 target_link_libraries( udacity
