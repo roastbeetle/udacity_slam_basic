@@ -1,11 +1,7 @@
-#include "./../include/particlefilter.h"
-#include <gnuplot-iostream.h>
+#include "./../include/control.h"
 
 void run(float length, Mat grid, vector<int> goal, vector<vector<float>> spath, vector<float> noise,
-        vector<float> params, bool printflag = true, float speed = 0.1, int time = 1000);
-
-void run(float length, Mat grid, vector<int> goal, vector<vector<float>> spath, vector<float> noise,
-        vector<float> params, bool printflag = true, float speed = 0.1, int time = 1000){
+        vector<float> params, bool printflag, float speed, int time){
     Gnuplot g1("ff");
     for(int i=0; i<grid.rows; i++){
         for(int j=0; j<grid.cols; j++){
