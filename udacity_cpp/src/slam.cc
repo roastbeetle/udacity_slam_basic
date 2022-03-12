@@ -1,11 +1,9 @@
+#include <iostream>
 #include "control.h"
 #include "pathplan.h"
 #include "config.h"
 
-using namespace std;
-
 float steering_noise, distance_noise, measurement_noise;
-
 vector<double> noise = {steering_noise, distance_noise, measurement_noise };
 
 void slam(float length, Mat grid, vector<int> init, vector<int> goal, vector<float> noise,
@@ -13,7 +11,8 @@ void slam(float length, Mat grid, vector<int> init, vector<int> goal, vector<flo
     plan path = plan(grid,init,goal);
     path.astar();
     path.smooth(weight_data, weigth_smooth);
-    return run(length,grid,goal,path.spath_,noise,{p_gain,d_gain});
+    vector<int> res = run(length,grid,goal,path.spath_,noise,{p_gain,d_gain});
+    cout<<"goal:"<<res[0]<<" collision:"<<res[1]<<" step:"<<res[2]<<endl;
 }
 
 int main ( int argc, char** argv )
@@ -24,7 +23,11 @@ int main ( int argc, char** argv )
         return 1;
     }
     Mat grid;
-
+    grid = Mat([[0, 0, 0, 1, 0, 1],
+                 [0, 1, 0, 1, 0, 0],
+                 [0, 1, 0, 0, 0, 0],
+                 [0, 1, 0, 1, 1, 0],
+                 [0, 0, 0, 1, 0, 0]])
     Config::setParameterFile ( argv[1] );
     float length = Config::get<float>("robot_length");
 

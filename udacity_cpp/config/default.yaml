@@ -1,4 +1,10 @@
-# parameter
+robot_length: 5.0
+
+init_x: 0
+init_y: 0
+goal_x: 4
+goal_y: 4
+
 steering_noise: 0.1
 distance_noise: 0.03
 measurement_noise: 0.3

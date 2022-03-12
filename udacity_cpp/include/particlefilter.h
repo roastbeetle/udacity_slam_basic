@@ -2,8 +2,6 @@
 #define PARTICLEFILTER_H
 
 #include "robot.h"
-
-using namespace std;
 using namespace cv;
 
 class particles{

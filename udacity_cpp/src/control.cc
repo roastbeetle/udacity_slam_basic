@@ -1,7 +1,7 @@
 #include "./../include/control.h"
 
-void run(float length, Mat grid, vector<int> goal, vector<vector<float>> spath, vector<float> noise,
-        vector<float> params, bool printflag, float speed, int time){
+vector<int> run(float length, Mat grid, vector<int> goal, vector<vector<float>> spath, vector<float> noise,
+            vector<float> params, bool printflag, float speed, int time){
     Gnuplot g1("ff");
     for(int i=0; i<grid.rows; i++){
         for(int j=0; j<grid.cols; j++){
@@ -52,5 +52,8 @@ void run(float length, Mat grid, vector<int> goal, vector<vector<float>> spath, 
         err += (cte*cte);
         N += 1;
     }
-
+    int gl_chk = int(myrobot.check_goal(goal));
+    int cl_chk = myrobot.check_collisions(grid);
+    int st_chk = myrobot.num_steps;
+    return {gl_chk, cl_chk, st_chk};
 }
