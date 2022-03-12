@@ -3,10 +3,12 @@ add_library( udacity SHARED
     pathplan.cc
     particlefilter.cc
     control.cc
-    slam.cc
     config.cc
 )
 
 target_link_libraries( udacity
     ${THIRD_PARTY_LIBS}
 )
+
+add_executable(slam slam.cc)
+target_link_libraries( slam udacity )

@@ -3,6 +3,8 @@
 #include "pathplan.h"
 #include "config.h"
 
+using namespace cv;
+
 float steering_noise, distance_noise, measurement_noise;
 vector<double> noise = {steering_noise, distance_noise, measurement_noise };
 
@@ -22,12 +24,13 @@ int main ( int argc, char** argv )
         cout<<"usage: run_vo parameter_file"<<endl;
         return 1;
     }
-    Mat grid;
-    grid = Mat([[0, 0, 0, 1, 0, 1],
-                 [0, 1, 0, 1, 0, 0],
-                 [0, 1, 0, 0, 0, 0],
-                 [0, 1, 0, 1, 1, 0],
-                 [0, 0, 0, 1, 0, 0]])
+   int data[] ={0, 0, 0, 1, 0, 1,
+                0, 1, 0, 1, 0, 0,
+                0, 1, 0, 0, 0, 0,
+                0, 1, 0, 1, 1, 0,
+                0, 0, 0, 1, 0, 0};
+
+    Mat grid(6,5,CV_32S,data);
     Config::setParameterFile ( argv[1] );
     float length = Config::get<float>("robot_length");
 
