@@ -11,8 +11,12 @@ vector<double> noise = {steering_noise, distance_noise, measurement_noise };
 void slam(float length, Mat grid, vector<int> init, vector<int> goal, vector<float> noise,
                    float weight_data, float weigth_smooth, float p_gain, float d_gain){
     plan path = plan(grid,init,goal);
+    path.make_heuristic();
+    //cout<<"bug"<<endl;
     path.astar();
+    //cout<<"bug"<<endl;
     path.smooth(weight_data, weigth_smooth);
+    //cout<<"bug"<<endl;
     vector<int> res = run(length,grid,goal,path.spath_,noise,{p_gain,d_gain});
     cout<<"goal:"<<res[0]<<" collision:"<<res[1]<<" step:"<<res[2]<<endl;
 }
@@ -21,7 +25,7 @@ int main ( int argc, char** argv )
 {
     if ( argc != 2 )
     {
-        cout<<"usage: run_vo parameter_file"<<endl;
+        cout<<"usage: parameter_file"<<endl;
         return 1;
     }
    int data[] ={0, 0, 0, 1, 0, 1,
@@ -30,7 +34,7 @@ int main ( int argc, char** argv )
                 0, 1, 0, 1, 1, 0,
                 0, 0, 0, 1, 0, 0};
 
-    Mat grid(6,5,CV_32S,data);
+    Mat grid(5,6,CV_32S,data);
     Config::setParameterFile ( argv[1] );
     float length = Config::get<float>("robot_length");
 

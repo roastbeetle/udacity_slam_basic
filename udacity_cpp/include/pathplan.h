@@ -1,3 +1,4 @@
+#pragma once
 #ifndef PATHPLAN_H
 #define PATHPLAN_H
 
@@ -27,14 +28,14 @@ class plan{
         vector<vector<int>> path_;
     
     public:
+        void make_heuristic();
         void astar();
         void smooth(float weight_data = 0.1, float weight_smooth = 0.1, float tolerance = 0.000001);
         vector<vector<float>> spath_;
-        plan(Mat grid, vector<int> init, vector<int> goal, float cost=1.0);
+        plan(Mat grid, vector<int> init, vector<int> goal, int cost=1);
         ~plan();
 
     protected:
-        void make_heuristic();
 
 };
 

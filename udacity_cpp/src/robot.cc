@@ -54,8 +54,8 @@ robot robot::move(cv::Mat grid, float steering, float distance, float tolerance,
     
     robot next = robot(length_);
     next.set_noise(steering_noise_, distance_noise_, measurement_noise_);
-   // next.num_collisions = num_collisions;
-   // next.num_steps = num_steps+1;
+    next.num_collisions = num_collisions;
+    next.num_steps = num_steps+1;
 
     random_device rd;
     mt19937 gen(rd());

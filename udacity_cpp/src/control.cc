@@ -2,7 +2,7 @@
 
 vector<int> run(float length, Mat grid, vector<int> goal, vector<vector<float>> spath, vector<float> noise,
             vector<float> params, bool printflag, float speed, int time){
-    Gnuplot g1("ff");
+    //Gnuplot g1("ff");
     for(int i=0; i<grid.rows; i++){
         for(int j=0; j<grid.cols; j++){
             if(grid.at<int>(i,j) == 1){
@@ -10,7 +10,6 @@ vector<int> run(float length, Mat grid, vector<int> goal, vector<vector<float>> 
             }
         }
     }
-
     robot myrobot = robot(length);
     myrobot.set(0.0,0.0,0.0);
     myrobot.set_noise(noise[0],noise[1],noise[2]);
@@ -23,12 +22,11 @@ vector<int> run(float length, Mat grid, vector<int> goal, vector<vector<float>> 
 
     float diff_cte, dx, dy, rx, ry, u, steer;
     vector<float> estimate, Z;
-
-    while(!(myrobot.check_goal(goal) && N<time  && index<spath.size()-1)){
-        
+    for(int i=0; i<spath.size(); i++)
+        cout<<" x "<<spath[i][0]<<" y "<<spath[i][1]<<endl;
+    while(!(myrobot.check_goal(goal)) && N<time  && index<spath.size()-1){
         diff_cte = -cte;
         estimate = filter.get_position();
-
         dx = spath[index+1][0] - spath[index][0];
         dy = spath[index+1][1] - spath[index][1];
         rx = estimate[0] - spath[index][0];
@@ -40,6 +38,7 @@ vector<int> run(float length, Mat grid, vector<int> goal, vector<vector<float>> 
         if(u>1.0){
             index += 1;
         }
+
         diff_cte += cte;
         steer = -params[0] * cte - params[1] * diff_cte;
         myrobot = myrobot.move(grid,steer,speed);

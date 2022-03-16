@@ -2,7 +2,7 @@
 #include "./../include/pathplan.h"
 
 
-plan::plan(Mat grid, vector<int> init, vector<int> goal, float cost):
+plan::plan(Mat grid, vector<int> init, vector<int> goal, int cost):
         cost_(cost), grid_(grid), row_(grid.rows), col_(grid.cols),
         init_(init), goal_(goal) {}
     
@@ -28,11 +28,11 @@ void plan::astar(){
     Mat closed = Mat::zeros(row_,col_,CV_32S);
     Mat action = Mat::zeros(row_,col_,CV_32S);
     closed.at<int>(init_[0],init_[1]) = 1;
-
+    
     int x = init_[0];
     int y = init_[1];
     int h = heur_.at<int>(x,y);
-    int g = 0.0;
+    int g = 0;
     int f = g + h;
     
     vector<int> open_e = {f,g,h,x,y};
@@ -48,7 +48,7 @@ void plan::astar(){
             cout<<"Search Terminated Failed"<<endl;
         }
         else{
-            sort(open.begin(), open.end());
+            reverse(open.begin(), open.end());
             vector<int> next = open.back();
             open.pop_back();
             g = next[1];
@@ -62,6 +62,7 @@ void plan::astar(){
             for(int i = 0; i< delta.size() ; i++){
                 int x2 = x + delta[i][0];
                 int y2 = y + delta[i][1];
+                //cout<<" x "<<x<<" y "<<y<<endl;
                 if( x2>=0 && x2<row_ && y2>=0 && y2<col_ ){
                     if( closed.at<int>(x2,y2) == 0 && grid_.at<int>(x2,y2) == 0){
                         int g2 = g + cost_;
@@ -69,14 +70,14 @@ void plan::astar(){
                         int f2 = g2 + h2;
                         open.push_back({f2,g2,h2,x2,y2});
                         closed.at<int>(x2,y2) = 1;
-                        action.at<int>(x2,y2) = 1;
+                        action.at<int>(x2,y2) = i;
                     }
                 }
             }
         }
         count = count + 1;
     }
-    
+    cout<<action<<endl;
     vector<vector<int>> invpath;
     x = goal_[0]; 
     y = goal_[1];
@@ -88,7 +89,6 @@ void plan::astar(){
         y = y2;
         invpath.push_back({x,y});
     } 
-
     path_.clear();
     for(int i=0; i<invpath.size(); i++){
         path_.push_back(invpath[invpath.size()-1-i]);
